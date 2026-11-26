@@ -1,0 +1,4 @@
+build/
+models/
+node_modules/
+__pycache__/

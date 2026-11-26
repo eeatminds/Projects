@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<title>RNS Reel 9x16</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  :root{
+    --orange:#ff6501; --orange-deep:#e94e05; --navy:#0f1e3d; --navy-2:#182c55;
+    --cream:#fff7ee; --ink:#111827; --wa:#25d366; --wa-deep:#128c7e;
+    --ml:'Anek Malayalam','Noto Sans Malayalam',sans-serif;
+    --lat:'Jost','Anek Malayalam',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+  body.alpha, html.alpha{background:transparent}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:var(--ml);color:#fff}
+  .scene{position:absolute;inset:0;opacity:0;overflow:hidden}
+  .bg{position:absolute;left:-81px;top:-144px;width:1242px;height:2208px;background-size:cover;background-position:center;will-change:transform}
+  .shade{position:absolute;inset:0}
+  .abs{position:absolute}
+  .center-x{left:0;right:0;text-align:center}
+  .shadow{text-shadow:0 6px 28px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.65)}
+  .chip{display:inline-block;background:var(--orange);color:#fff;border-radius:22px;padding:6px 34px 10px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+  .pill{display:inline-block;background:var(--orange);color:#fff;border-radius:999px;padding:6px 30px 9px;font-weight:700;font-size:46px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  .pill.navy{background:var(--navy)}
+  .card{position:absolute;left:70px;width:940px;border-radius:28px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45);border:6px solid #fff;background:#ddd}
+  .card img{display:block;width:100%;height:100%;object-fit:cover}
+  .footage-only{display:none}
+  .scene.footage .bg,.scene.footage .still-only{display:none}
+  .scene.footage .footage-only{display:block}
+
+  .scene.footage{background:transparent!important}
+
+  /* S1 — text band on top, photo below (stills); full-bleed when footage/s1.mp4 exists */
+  #s1{background:radial-gradient(130% 55% at 50% 10%,var(--navy-2) 0%,var(--navy) 75%)}
+  #s1 .photo{position:absolute;left:0;top:830px;width:1080px;height:1090px;overflow:hidden}
+  #s1 .photo .bg{left:-43px;top:-30px;width:1166px;height:1150px}
+  #s1 .photo::after{content:"";position:absolute;inset:0 0 auto 0;height:220px;background:linear-gradient(180deg,var(--navy),rgba(15,30,61,0))}
+  #s1 .l1{top:270px;font-size:150px;font-weight:800;line-height:1.15}
+  #s1 .l2{top:440px;font-size:150px;font-weight:800;line-height:1.15}
+  #s1 .q{top:650px;z-index:2}
+  #s1 .q .chip{font-size:150px;font-weight:800;line-height:1.2;padding:4px 48px 16px}
+
+  /* S2a — caption block mid-frame so faces at the top stay clear */
+  #s2a .shade{background:linear-gradient(180deg,rgba(8,14,30,0) 40%,rgba(8,14,30,.35) 75%)}
+  #s2a .cap{left:65px;width:950px;top:950px;padding:58px 30px 30px;border-radius:32px;background:rgba(15,30,61,.86);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  #s2a .cap .pill{position:absolute;left:50%;top:-34px;transform:translateX(-50%)}
+  #s2a .cap .h{font-size:80px;font-weight:800;line-height:1.14}
+
+  /* S2b */
+  #s2b{background:radial-gradient(120% 70% at 50% 25%,var(--navy-2) 0%,var(--navy) 70%)}
+  #s2b .h1{top:282px;font-size:80px;font-weight:700;line-height:1.1}
+  #s2b .h2{top:378px;font-size:84px;font-weight:800;line-height:1.1;white-space:nowrap}
+  #s2b .h2 b{color:var(--orange);font-family:var(--lat);font-size:116px;font-weight:800;vertical-align:-6px}
+  #s2b .c1{top:560px;height:443px}
+  #s2b .c2{top:1030px;height:600px}
+  #s2b .c2 .label{position:absolute;left:26px;top:24px}
+  #s2b .c1 .label{position:absolute;right:26px;bottom:22px;font-size:34px;padding:4px 22px 7px}
+
+  /* S3 */
+  #s3 .shade{background:linear-gradient(180deg,rgba(15,30,61,.86),rgba(15,30,61,.93))}
+  #s3 .tag{top:280px}
+  #s3 .portrait{left:390px;top:372px;width:300px;height:300px;border-radius:50%;overflow:hidden;border:10px solid var(--orange);box-shadow:0 0 0 10px rgba(255,255,255,.12),0 24px 60px rgba(0,0,0,.5)}
+  #s3 .portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+  #s3 .name{top:688px;font-size:90px;font-weight:800;line-height:1.1}
+  #s3 .name small{display:block;font-family:var(--lat);font-weight:500;font-size:36px;letter-spacing:3px;opacity:.75;margin-top:0}
+  #s3 .route{left:65px;width:950px;top:880px;height:240px}
+  #s3 .stop{position:absolute;top:56px;width:450px;height:190px;padding:16px 14px;border-radius:24px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.18);text-align:center}
+  #s3 .stop.a{left:0}
+  #s3 .stop.b{right:0;background:rgba(255,101,1,.18);border-color:var(--orange)}
+  #s3 .stop .k{font-size:30px;font-weight:600;opacity:.75;line-height:1.25}
+  #s3 .stop .v{font-size:52px;font-weight:800;line-height:1.25;white-space:nowrap}
+  #s3 .stop .d{font-family:var(--lat);font-size:31px;font-weight:500;opacity:.92;line-height:1.3;white-space:nowrap}
+  #s3 .arc{position:absolute;left:225px;top:-4px;width:500px;height:72px;overflow:visible}
+  #s3 .quote{top:1150px;left:65px;right:65px;text-align:center;font-family:var(--lat);font-style:italic;font-weight:500;font-size:38px;line-height:1.25;opacity:.95}
+  #s3 .quote span{font-style:normal;display:block;font-size:24px;letter-spacing:.5px;opacity:.6;margin-top:6px}
+  #s3 .lower{left:65px;top:1030px;width:950px;padding:24px 34px;border-radius:28px;background:rgba(15,30,61,.86);border-left:14px solid var(--orange)}
+  #s3 .lower .n{font-size:66px;font-weight:800;line-height:1.15}
+  #s3 .lower .m{font-family:var(--lat);font-size:36px;font-weight:500;opacity:.9}
+
+  /* S4 */
+  #s4 .shade{background:linear-gradient(180deg,rgba(8,14,30,.8) 0%,rgba(8,14,30,.5) 36%,rgba(8,14,30,0) 58%)}
+  #s4 .shade{background:linear-gradient(180deg,rgba(8,14,30,.72) 0%,rgba(8,14,30,.25) 26%,rgba(8,14,30,0) 40%,rgba(8,14,30,0) 52%,rgba(8,14,30,.55) 70%,rgba(8,14,30,.2) 100%)}
+  #s4 .h{top:262px;font-size:92px;font-weight:800;line-height:1.18}
+  #s4 .row{left:65px;width:950px;text-align:center}
+  #s4 .row1{top:1056px} #s4 .row2{top:1158px}
+  #s4 .tick{display:inline-flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:999px;padding:6px 34px 10px 12px;font-size:50px;font-weight:800;white-space:nowrap;box-shadow:0 14px 36px rgba(0,0,0,.35)}
+  #s4 .tick i{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--orange);color:#fff;font-style:normal;font-size:36px;font-family:var(--lat)}
+
+  /* S5 */
+  #s5{background:radial-gradient(120% 60% at 50% 0%,#ffffff 0%,var(--cream) 70%);color:var(--ink)}
+  #s5 .logo{left:425px;top:250px;width:230px}
+  #s5 .org{top:500px;font-family:var(--lat);font-weight:700;font-size:56px;color:var(--navy);letter-spacing:.5px}
+  #s5 .loc{top:568px;font-size:36px;font-weight:600;color:#4b5563}
+  #s5 .adm{top:640px}
+  #s5 .adm .chip{font-size:68px;font-weight:800;line-height:1.2;padding:6px 40px 12px}
+  #s5 .crs{top:770px;font-family:var(--lat);font-size:46px;font-weight:600;color:var(--navy)}
+  #s5 .trust{left:65px;width:950px;top:850px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  #s5 .trust div{background:#fff;border:2px solid #e5e7eb;border-radius:18px;padding:12px 10px 14px;text-align:center;font-family:var(--lat);font-weight:600;font-size:34px;color:var(--navy);box-shadow:0 6px 18px rgba(15,30,61,.08)}
+  #s5 .trust div b{color:var(--orange-deep)}
+  #s5 .wa{left:110px;width:860px;top:1080px;height:150px;border-radius:999px;background:var(--wa);display:flex;align-items:center;justify-content:center;gap:26px;color:#fff;box-shadow:0 18px 40px rgba(18,140,126,.45)}
+  #s5 .wa svg{width:92px;height:92px;flex:none}
+  #s5 .wa .t{font-size:56px;font-weight:800;line-height:1}
+  #s5 .wa .n{font-family:var(--lat);font-size:38px;font-weight:600;line-height:1.1;opacity:.95;margin-top:6px}
+
+  #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+
+  /* English cut (?lang=en): Latin display face, sizes re-balanced for Latin widths */
+  html.en #stage{font-family:var(--lat)}
+  html.en #s1 .l1,html.en #s1 .l2{font-size:142px;letter-spacing:-1px}
+  html.en #s1 .l1{top:285px} html.en #s1 .l2{top:450px}
+  html.en #s1 .q{top:650px} html.en #s1 .q .chip{font-size:132px;padding:6px 46px 18px}
+  html.en #s2a .cap .h{font-size:96px;line-height:1.05}
+  html.en #s2a .cap{padding-top:62px}
+  html.en #s2b .h1{font-size:78px} html.en #s2b .h2{font-size:96px} html.en #s2b .h2 b{font-size:120px;vertical-align:-4px}
+  html.en .pill{font-size:42px;padding:8px 32px 10px;letter-spacing:.5px}
+  html.en #s3 .name{font-size:96px;top:700px}
+  html.en #s3 .stop .k{font-size:30px;letter-spacing:1px;text-transform:uppercase}
+  html.en #s3 .stop .v{font-size:46px;letter-spacing:-.5px}
+  html.en #s4 .h{font-size:90px;line-height:1.04;top:262px}
+  html.en #s4 .tick{font-size:52px;font-weight:700;padding:8px 36px 12px 14px}
+  html.en #s5 .adm .chip{font-size:72px;padding:8px 42px 14px}
+  html.en #s5 .wa .t{font-size:60px;font-weight:700}
+  html.en #s5 .loc{font-size:38px}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 · 0–3 s · hook -->
+  <section class="scene" id="s1" data-slot="s1">
+    <div class="photo still-only"><div class="bg" style="background-image:url(../assets/prepared/s1_student.jpg)"></div></div>
+    <div class="abs center-x shadow l1" data-in="-0.3">പ്ലസ് ടു</div>
+    <div class="abs center-x shadow l2" data-in="0.12">കഴിഞ്ഞോ?</div>
+    <div class="abs center-x q" data-in="1.0" data-ease="back"><span class="chip">ഇനി എന്ത്?</span></div>
+  </section>
+
+  <!-- 2a · 3–5.5 s · skills lab -->
+  <section class="scene" id="s2a" data-slot="s2">
+    <div class="bg" style="background-image:url(../assets/prepared/s2_skills_lab.jpg)"></div>
+    <div class="shade"></div>
+    <div class="abs cap" data-in="3.12"><span class="pill">സ്കിൽസ് ലാബ്</span><div class="h">കൈകൊണ്ട് ചെയ്ത്<br>പഠിക്കാം</div></div>
+  </section>
+
+  <!-- 2b · 5.5–8 s · 100-bed parent hospital, ward rounds -->
+  <section class="scene" id="s2b" data-slot="s2">
+    <div class="abs center-x shadow h1" data-in="5.55">പിന്നെ, സ്വന്തം</div>
+    <div class="abs center-x shadow h2" data-in="5.7"><b>100</b> ബെഡ് ആശുപത്രി</div>
+    <div class="card c1 still-only" data-in="5.85" data-from="right"><img src="../assets/prepared/s2_hospital.jpg" alt=""><span class="pill navy label">R.N.S. Hospital, Murudeshwar</span></div>
+    <div class="card c2 still-only" data-in="6.35" data-from="left"><img src="../assets/prepared/s2_ward.jpg" alt=""><span class="pill label">വാർഡ് റൗണ്ട്സ്</span></div>
+  </section>
+
+  <!-- 3 · 8–14 s · alumna abroad -->
+  <section class="scene" id="s3" data-slot="s3">
+    <div class="bg" style="background-image:url(../assets/prepared/s3_bg.jpg)"></div>
+    <div class="shade still-only"></div>
+    <div class="abs center-x tag still-only" data-in="8.12"><span class="pill">ഞങ്ങളുടെ പൂർവ്വ വിദ്യാർത്ഥിനി</span></div>
+    <div class="abs portrait still-only" data-in="8.25" data-ease="back"><img src="../assets/prepared/s3_alumna.jpg" alt=""></div>
+    <div class="abs center-x name still-only" data-in="8.55">ദേവിക മോഹൻ<small>DEVIKA MOHAN</small></div>
+    <div class="abs route still-only">
+      <div class="stop a" data-in="9.0">
+        <div class="k">പഠിച്ചത്</div>
+        <div class="v">RNS, മുരുഡേശ്വർ</div>
+        <div class="d">B.Sc Nursing · 2015–19</div>
+      </div>
+      <svg class="arc" viewBox="0 0 500 72" data-in="9.3">
+        <path id="arcpath" d="M14 50 Q250 -40 486 50" fill="none" stroke="#ff6501" stroke-width="6" stroke-dasharray="4 16" stroke-linecap="round"/>
+        <g id="plane"><path d="M0 -6 L22 0 L0 6 L4 0 Z M6 -2 L-4 -16 L-10 -16 L-2 -2 Z M6 2 L-4 16 L-10 16 L-2 2 Z" fill="#fff"/></g>
+      </svg>
+      <div class="stop b" data-in="10.35" data-ease="back">
+        <div class="k">ഇപ്പോൾ</div>
+        <div class="v">അയർലൻഡിൽ</div>
+        <div class="d">Advanced Practice Nurse</div>
+      </div>
+    </div>
+    <div class="abs quote still-only" data-in="11.0">“Now I am an advanced practice nurse in Ireland.”<span>— Devika’s testimonial, rnsnursingcollege.com</span></div>
+    <!-- used only when footage/s3.mp4 (the consented Malayalam clip) is present -->
+    <div class="abs lower footage-only" data-in="8.4" data-from="left">
+      <div class="n">ദേവിക മോഹൻ</div>
+      <div class="m">B.Sc Nursing, RNS 2015–19 → Advanced Practice Nurse, Ireland</div>
+    </div>
+  </section>
+
+  <!-- 4 · 14–18 s · hostel + Kerala food day -->
+  <section class="scene" id="s4" data-slot="s4">
+    <div class="bg" style="background-image:url(../assets/prepared/s4_onam.jpg)"></div>
+    <div class="shade"></div>
+    <div class="abs center-x shadow h" data-in="14.08">ഇവിടെയും ഒരു<br>കൊച്ചു കേരളം</div>
+    <div class="abs row row1" data-in="14.7" data-ease="back"><span class="tick"><i>✓</i>ഹോസ്റ്റൽ റൂം</span></div>
+    <div class="abs row row2" data-in="15.25" data-ease="back"><span class="tick"><i>✓</i>എല്ലാ ആഴ്ചയും കേരള ഫുഡ് ഡേ</span></div>
+  </section>
+
+  <!-- 5 · 18–20 s · end card -->
+  <section class="scene" id="s5">
+    <img class="abs logo" src="../assets/prepared/logo.png" alt="" data-in="18.02" data-ease="back">
+    <div class="abs center-x org" data-in="18.12">RNS College of Nursing</div>
+    <div class="abs center-x loc" data-in="18.18">മുരുഡേശ്വർ, കർണാടക</div>
+    <div class="abs center-x adm" data-in="18.26" data-ease="back"><span class="chip">അഡ്മിഷൻ 2026–27</span></div>
+    <div class="abs center-x crs" data-in="18.36">B.Sc Nursing (4 yrs) · GNM (3 yrs)</div>
+    <div class="abs trust">
+      <div data-in="18.44"><b>INC</b> Recognised</div>
+      <div data-in="18.48"><b>KSNC</b> Recognised</div>
+      <div data-in="18.52"><b>RGUHS</b> Affiliated</div>
+      <div data-in="18.56"><b>100-bed</b> Parent Hospital</div>
+    </div>
+    <div class="abs wa" data-in="18.62" data-ease="back">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M24 4C13 4 4 12.6 4 23.2c0 3.7 1.1 7.2 3.1 10.2L4.6 43l9.9-2.6c2.9 1.5 6.1 2.3 9.5 2.3 11 0 20-8.6 20-19.2S35 4 24 4z" fill="none" stroke="#fff" stroke-width="3.4" stroke-linejoin="round"/>
+        <g transform="translate(12 11.5) scale(1.0)"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#fff"/></g>
+      </svg>
+      <div><div class="t">WhatsApp ചെയ്യൂ</div><div class="n">+91 99640 06920</div></div>
+    </div>
+  </section>
+
+  <div id="flash"></div>
+</div>
+
+<script>
+// ---- timeline -------------------------------------------------------------
+const FPS = 30, DURATION = 20;
+const SCENES = [
+  {id:'s1',  a:0,    b:3.0},
+  {id:'s2a', a:3.0,  b:5.5},
+  {id:'s2b', a:5.5,  b:8.0},
+  {id:'s3',  a:8.0,  b:14.0},
+  {id:'s4',  a:14.0, b:18.0},
+  {id:'s5',  a:18.0, b:20.0},
+];
+const CUTS = [3.0, 5.5, 8.0, 14.0, 18.0];
+
+// ?lang=en → English cut. Malayalam is the markup default; English replaces these nodes.
+const COPY_EN = {
+  '#s1 .l1': 'Finished',
+  '#s1 .l2': 'Plus Two?',
+  '#s1 .q .chip': 'What next?',
+  '#s2a .cap .pill': 'Skills lab',
+  '#s2a .cap .h': 'Learn it<br>hands-on',
+  '#s2b .h1': 'Then, at our own',
+  '#s2b .h2': '<b>100</b>-bed hospital',
+  '#s2b .c2 .label': 'Ward rounds',
+  '#s3 .tag .pill': 'Our alumna',
+  '#s3 .name': 'Devika Mohan',
+  '#s3 .stop.a .k': 'Studied at',
+  '#s3 .stop.a .v': 'RNS, Murudeshwar',
+  '#s3 .stop.b .k': 'Now in',
+  '#s3 .stop.b .v': 'Ireland',
+  '#s3 .lower .n': 'Devika Mohan',
+  '#s4 .h': 'A little Kerala,<br>right here',
+  '#s4 .row1 .tick': '<i>✓</i>Hostel rooms',
+  '#s4 .row2 .tick': '<i>✓</i>Kerala food day, every week',
+  '#s5 .loc': 'Murudeshwar, Karnataka',
+  '#s5 .adm .chip': 'Admissions 2026–27',
+  '#s5 .wa .t': 'WhatsApp us',
+};
+const LANG = new URLSearchParams(location.search).get('lang') || 'ml';
+if (LANG === 'en') {
+  document.documentElement.lang = 'en';
+  document.documentElement.classList.add('en');
+  for (const [sel, html] of Object.entries(COPY_EN)) {
+    const el = document.querySelector(sel);
+    if (!el) throw new Error('missing copy target ' + sel);
+    el.innerHTML = html;
+  }
+}
+
+// ?footage=s1,s3  → those slots render without their stills (transparent), so real clips can sit underneath
+const params = new URLSearchParams(location.search);
+const FOOTAGE = new Set((params.get('footage')||'').split(',').filter(Boolean));
+if (FOOTAGE.size){ document.documentElement.classList.add('alpha'); document.body.classList.add('alpha'); }
+document.querySelectorAll('.scene[data-slot]').forEach(s=>{ if(FOOTAGE.has(s.dataset.slot)) s.classList.add('footage'); });
+
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,p)=>a+(b-a)*p;
+const outCubic=p=>1-Math.pow(1-p,3);
+const inOutSine=p=>-(Math.cos(Math.PI*p)-1)/2;
+const outBack=p=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2)};
+
+const animated=[...document.querySelectorAll('[data-in]')];
+const arcPath=document.getElementById('arcpath'), plane=document.getElementById('plane');
+const arcLen=arcPath.getTotalLength();
+
+function bgMotion(sceneId, p, punch){
+  // p = 0..1 across the scene; punch = 0..1 right after the cut
+  const k = 0.06*Math.pow(1-punch,2);           // little zoom-punch on entry
+  switch(sceneId){
+    case 's1':  return `translate(${lerp(0,-10,p)}px,${lerp(0,-12,p)}px) scale(${lerp(1.0,1.07,inOutSine(p))+k})`;
+    case 's2a': return `translate(${lerp(40,-40,inOutSine(p))}px,0) scale(${1.06+k})`;
+    case 's3':  return `scale(${lerp(1.02,1.1,p)})`;
+    case 's4':  return `translate(0,${lerp(10,-30,p)}px) scale(${lerp(1.0,1.12,inOutSine(p))+k})`;
+  }
+  return '';
+}
+
+window.seek = function(t){
+  for(const s of SCENES){
+    const el=document.getElementById(s.id);
+    // scenes overlap by 0.12 s so the incoming shot fades over the outgoing one
+    const vis = t>=s.a-0.001 && t<s.b+0.12;
+    const fadeIn = s.a===0 ? 1 : clamp((t-s.a)/0.12);
+    el.style.opacity = vis ? fadeIn : 0;
+    el.style.zIndex = vis ? SCENES.indexOf(s)+1 : 0;
+    const bg=el.querySelector('.bg');
+    if(bg && vis){
+      const p=clamp((t-s.a)/(s.b-s.a)), punch=clamp((t-s.a)/0.45);
+      bg.style.transform=bgMotion(s.id,p,punch);
+    }
+  }
+  for(const el of animated){
+    const t0=parseFloat(el.dataset.in), d=parseFloat(el.dataset.dur||0.42);
+    const raw=clamp((t-t0)/d);
+    const e = el.dataset.ease==='back' ? outBack(raw) : outCubic(raw);
+    const from = el.dataset.from;
+    let tf;
+    if(from==='left')       tf=`translateX(${(1-e)*-1100}px)`;
+    else if(from==='right') tf=`translateX(${(1-e)*1100}px)`;
+    else                    tf=`translateY(${(1-e)*46}px) scale(${0.88+0.12*e})`;
+    el.style.opacity = clamp(raw*1.6);
+    el.style.transform = tf;
+  }
+  // gentle bob on the hook chip so frame 2.0–3.0 is not static
+  const q=document.querySelector('#s1 .q .chip');
+  if(t>1.6) q.style.transform=`rotate(${Math.sin((t-1.6)*5)*1.6}deg)`;
+  // plane along the arc
+  const pp=clamp((t-9.35)/1.0), pe=inOutSine(pp);
+  const L=pe*arcLen, pt=arcPath.getPointAtLength(L), pt2=arcPath.getPointAtLength(Math.min(arcLen,L+1));
+  const ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI;
+  plane.setAttribute('transform',`translate(${pt.x} ${pt.y}) rotate(${ang}) scale(1.5)`);
+  plane.style.opacity = 1-clamp((t-10.25)/0.25);
+  // short white flash on each cut
+  let f=0; for(const c of CUTS){ if(t>=c && t<c+0.15) f=Math.max(f,0.28*(1-(t-c)/0.15)); }
+  document.getElementById('flash').style.opacity=f;
+};
+
+window.ready = (async()=>{
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+  const urls=[...document.querySelectorAll('.bg')].map(b=>getComputedStyle(b).backgroundImage.slice(5,-2));
+  await Promise.all(urls.map(u=>new Promise(r=>{const i=new Image();i.onload=i.onerror=r;i.src=u;})));
+  window.seek(0);
+  return true;
+})();
+</script>
+</body>
+</html>
