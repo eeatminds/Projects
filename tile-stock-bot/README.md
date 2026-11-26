@@ -54,7 +54,25 @@ You need a computer or server that stays on all day: an office PC, a small cloud
 
 ### 1. Install
 
-Install **Node.js 22 or newer** from <https://nodejs.org>, then:
+Install **Node.js 22 or newer** from <https://nodejs.org> (the "LTS" Windows Installer is fine).
+
+**Windows (Command Prompt):**
+
+1. Download the code as a ZIP from GitHub (log in first). Right-click the ZIP → **Extract All…** → choose `C:\` → **Extract**.
+2. Open Command Prompt and run each line:
+
+```bat
+cd C:\Projects-claude-stoic-turing-yb3gwq\tile-stock-bot
+npm install
+copy .env.example .env
+notepad .env
+```
+
+3. In Notepad, set `ADMIN_PASSWORD=` to a long password. Save and close.
+
+The folder name above is for the download of branch `claude/stoic-turing-yb3gwq`. If you downloaded `main`, it is `C:\Projects-main\tile-stock-bot`.
+
+**Mac / Linux:**
 
 ```bash
 cd tile-stock-bot
