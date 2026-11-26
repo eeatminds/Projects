@@ -1,0 +1,23 @@
+{
+  "name": "tile-stock-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp stock-reply bot for tile dealers: admin uploads the daily stock Excel, the bot answers code + polish queries with stock per location.",
+  "type": "module",
+  "main": "src/server.js",
+  "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js",
+    "sample": "node scripts/make-sample.js"
+  },
+  "dependencies": {
+    "baileys": "7.0.0-rc14",
+    "express": "5.2.1",
+    "pino": "9.14.0",
+    "qrcode": "1.5.4",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}
