@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RNS Meta Ad Creatives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<!--
+  Meta ad creative templates for RNS College of Nursing (English set).
+  Render one creative:  creatives.html?id=01&size=fd   (size: sq 1080x1080 | fd 1080x1350 | st 1080x1920)
+  render.mjs screenshots every id x size into out/en/.
+-->
+<style>
+:root{
+  --navy:#011A41; --navy-2:#0A2B5E; --slate:#273244; --orange:#FF6501; --orange-2:#FF8A3D;
+  --paper:#FFFFFF; --mist:#EEF2F9; --muted:#5B6B86; --soft:#C5D0E4; --line:rgba(255,255,255,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9dde5}
+body{font-family:'Open Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+em{font-style:normal;color:var(--orange)}
+
+/* ---------- frame + sizes ---------- */
+.cr{position:relative;overflow:hidden;width:1080px;background:var(--navy);color:#fff}
+.cr.sq{height:1080px;--ph:430px;--bt:44px;--px:60px;--pb:52px;--h1:70px;--sub:29px;--li:28px;--gap:22px}
+.cr.fd{height:1350px;--ph:590px;--bt:48px;--px:64px;--pb:64px;--h1:84px;--sub:32px;--li:31px;--gap:30px}
+.cr.st{height:1920px;--ph:680px;--bt:290px;--px:68px;--pb:380px;--h1:92px;--sub:34px;--li:33px;--gap:34px}
+
+/* ---------- photo ---------- */
+.photo{position:absolute;left:0;top:0;width:100%;height:calc(var(--ph) + 60px);background-size:cover;background-position:var(--pos,center)}
+.photo::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(1,26,65,.55) 0%,rgba(1,26,65,0) 22%,rgba(1,26,65,0) 70%,rgba(1,26,65,.35) 100%)}
+
+/* ---------- brand pill + tag ---------- */
+.brand{position:absolute;z-index:3;left:var(--px);top:var(--bt);display:flex;align-items:center;gap:16px;
+  background:#fff;border-radius:999px;padding:9px 30px 9px 9px;color:var(--navy);box-shadow:0 10px 30px rgba(1,26,65,.25)}
+.brand img{width:66px;height:66px;border-radius:50%;object-fit:contain;background:#fff;padding:3px}
+.brand b{display:block;font-family:Jost;font-weight:700;font-size:27px;line-height:1.05}
+.brand small{display:block;font-size:18px;font-weight:600;color:var(--muted);margin-top:3px;letter-spacing:.2px}
+.tag{position:absolute;z-index:3;right:var(--px);top:calc(var(--bt) + 10px);background:var(--orange);color:#fff;
+  font-family:Jost;font-weight:700;font-size:24px;letter-spacing:1.6px;text-transform:uppercase;padding:16px 26px;border-radius:999px;
+  box-shadow:0 10px 30px rgba(255,101,1,.35)}
+
+/* ---------- content panel ---------- */
+.panel{position:absolute;z-index:2;left:0;right:0;bottom:0;top:var(--ph);background:var(--navy);
+  border-radius:46px 46px 0 0;padding:52px var(--px) var(--pb);display:flex;flex-direction:column;gap:var(--gap)}
+.sq .panel{padding-top:40px}
+.eyebrow{font-family:Jost;font-weight:600;font-size:25px;letter-spacing:3.2px;text-transform:uppercase;color:var(--orange-2);display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';width:44px;height:4px;border-radius:2px;background:var(--orange)}
+h1{font-family:Jost;font-weight:700;font-size:var(--h1);line-height:1.02;letter-spacing:-1.2px;margin-top:-6px;text-wrap:balance}
+.sub{font-size:var(--sub);line-height:1.42;color:var(--soft);text-wrap:pretty}
+.sub b{color:#fff}
+
+/* bullets */
+.bullets{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:20px 30px}
+.st .bullets.one{grid-template-columns:1fr}
+.bullets li{display:flex;align-items:center;gap:16px;font-size:var(--li);font-weight:600;line-height:1.25}
+.ic{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:rgba(255,101,1,.18);color:var(--orange-2)}
+.ic svg{width:32px;height:32px}
+.sq .ic{width:46px;height:46px;border-radius:14px}.sq .ic svg{width:25px;height:25px}
+
+/* course cards */
+.courses{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.course{border:1.5px solid var(--line);background:rgba(255,255,255,.06);border-radius:26px;padding:26px 28px}
+.course b{display:block;font-family:Jost;font-weight:700;font-size:42px;line-height:1.05}
+.course span{display:block;margin-top:10px;font-size:24px;color:var(--soft);line-height:1.35}
+.course i{font-style:normal;display:inline-block;margin-top:14px;font-family:Jost;font-weight:600;font-size:22px;color:var(--orange-2);letter-spacing:1px;text-transform:uppercase}
+.sq .course{padding:20px 24px}.sq .course b{font-size:36px}.sq .course span{font-size:22px;margin-top:6px}.sq .course i{margin-top:8px;font-size:20px}
+
+/* fee equation */
+.eq{display:flex;align-items:stretch;gap:12px}
+.eq .t{flex:1;border-radius:22px;background:rgba(255,255,255,.07);border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 6px;font-family:Jost;font-weight:600;font-size:27px}
+.eq .t .ic{background:rgba(255,101,1,.16)}
+.eq .op{align-self:center;font-family:Jost;font-weight:700;font-size:40px;color:var(--orange)}
+.total{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--orange);border-radius:22px;padding:22px 30px;font-family:Jost;font-weight:700;font-size:38px}
+.total small{font-family:'Open Sans';font-weight:600;font-size:23px;opacity:.95;text-align:right;line-height:1.3}
+.sq .eq .t{padding:14px 4px;font-size:24px;gap:8px}.sq .total{padding:16px 26px;font-size:32px}.sq .total small{font-size:20px}
+
+/* route */
+.route{display:flex;align-items:center;gap:18px}
+.cities{display:flex;flex-direction:column;gap:14px}
+.city{display:flex;align-items:center;gap:14px;font-family:Jost;font-weight:600;font-size:34px}
+.city::before{content:'';width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.18)}
+.track{flex:1;position:relative;height:150px}
+.track svg{position:absolute;inset:0;width:100%;height:100%}
+.dest{flex:none;background:#fff;color:var(--navy);border-radius:26px;padding:22px 28px;text-align:center}
+.dest b{display:block;font-family:Jost;font-weight:700;font-size:36px;line-height:1.05}
+.dest span{display:block;font-size:20px;font-weight:600;color:var(--muted);margin-top:6px}
+.sq .city{font-size:30px}.sq .track{height:130px}.sq .dest b{font-size:32px}
+
+/* footer row: chips + CTA */
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chips span{font-size:19px;font-weight:600;color:var(--soft);letter-spacing:.6px;text-transform:uppercase;margin-right:4px}
+.chips b{font-family:Jost;font-weight:700;font-size:23px;letter-spacing:1px;border:2px solid rgba(255,255,255,.35);border-radius:12px;padding:7px 13px}
+.note{font-size:21px;color:var(--soft);font-weight:600;line-height:1.35}
+.cta{flex:none;display:flex;align-items:center;gap:14px;background:var(--orange);color:#fff;font-family:Jost;font-weight:700;font-size:30px;padding:22px 34px;border-radius:999px;box-shadow:0 14px 34px rgba(255,101,1,.38)}
+.cta svg{width:32px;height:32px}
+.sq .cta{font-size:27px;padding:19px 28px}
+.st .panel{justify-content:center}
+.st .foot{margin-top:22px;flex-direction:column;align-items:stretch;gap:26px}
+.st .cta{justify-content:center;font-size:34px;padding:28px 34px}
+.st .chips{justify-content:center}
+
+/* story bottom zone (kept free of key info; Reels/Stories UI sits here) */
+.safe{display:none}
+.st .safe{display:flex;position:absolute;z-index:3;left:0;right:0;bottom:120px;justify-content:center;gap:16px;align-items:center;font-size:22px;color:var(--soft);font-weight:600;letter-spacing:.4px}
+.st .safe i{width:6px;height:6px;border-radius:50%;background:var(--orange)}
+
+/* ---------- quote layout ---------- */
+.cr.q{background:var(--mist);color:var(--navy)}
+.q .brand{box-shadow:0 6px 20px rgba(1,26,65,.10)}
+.q .qwrap{position:absolute;left:0;right:0;top:calc(var(--bt) + 96px);bottom:var(--band,300px);padding:0 var(--px) 28px;display:flex;flex-direction:column;justify-content:center;gap:var(--gap)}
+.q .top{display:flex;gap:40px;align-items:flex-end}
+.q .top h1{flex:1;color:var(--navy);padding-bottom:8px}
+.q .arch{flex:none;width:var(--aw);height:var(--ah);border-radius:999px 999px 30px 30px;background-size:cover;background-position:var(--pos,center top);
+  border:8px solid #fff;box-shadow:0 24px 50px rgba(1,26,65,.18);position:relative}
+.q .arch::after{content:'Alumna';position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);background:var(--orange);color:#fff;font-family:Jost;font-weight:700;font-size:21px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;border-radius:999px}
+.q.sq{--aw:290px;--ah:370px}.q.fd{--aw:380px;--ah:490px}.q.st{--aw:340px;--ah:440px}
+.q h1{font-size:calc(var(--h1) * .9)}
+.q blockquote{font-family:Jost;font-weight:500;font-size:var(--qf);line-height:1.3;color:var(--slate);text-wrap:pretty;margin-top:10px}
+.q blockquote::before{content:'\201C';display:block;height:.62em;margin-bottom:6px;font-family:Jost;font-weight:800;font-size:150px;line-height:1;color:var(--orange)}
+.q.sq blockquote::before{font-size:120px}
+.q.sq{--qf:35px}.q.fd{--qf:42px}.q.st{--qf:46px}
+.q .who{border-left:5px solid var(--orange);padding-left:20px}
+.q .who b{display:block;font-family:Jost;font-weight:700;font-size:32px}
+.q .who span{display:block;margin-top:4px;font-size:23px;font-weight:600;color:var(--muted)}
+.q .band{position:absolute;left:0;right:0;bottom:0;background:var(--navy);color:#fff;padding:34px var(--px) var(--pb);border-radius:46px 46px 0 0}
+.q.sq .band{padding:28px var(--px) 40px}
+.q .band .foot{margin-top:0}
+.q.st .band{padding-top:44px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const IMG = '../assets/img/';
+const ICON = {
+  check:'<path d="M5 12.5l4.2 4.2L19 7"/>',
+  shield:'<path d="M12 3l7.5 3v5.6c0 4.6-3.2 8.2-7.5 9.4-4.3-1.2-7.5-4.8-7.5-9.4V6z"/><path d="M8.8 12.2l2.3 2.3 4.3-4.6"/>',
+  chat:'<path d="M4 5.5h16v10.5H10l-4.8 3.8V16H4z"/><path d="M8.5 10.7h.01M12 10.7h.01M15.5 10.7h.01" stroke-width="2.6"/>',
+  book:'<path d="M4 5.5c2.7-1 5.3-1 8 .8 2.7-1.8 5.3-1.8 8-.8V19c-2.7-1-5.3-1-8 .8-2.7-1.8-5.3-1.8-8-.8z"/><path d="M12 6.3v13.5"/>',
+  hosp:'<path d="M4 20V8l8-4 8 4v12z"/><path d="M12 9v6M9 12h6"/>',
+  home:'<path d="M4 11l8-6.5 8 6.5"/><path d="M6.5 9.5V20h11V9.5"/><path d="M10 20v-5h4v5"/>',
+  cam:'<path d="M3.5 7.5l12.5-3 1.5 5.5-12.5 3z"/><path d="M8 12.5l1.2 4.5H5"/><path d="M17.5 8.5l3-1.2"/>',
+  moon:'<path d="M19 14.5A7.5 7.5 0 019.5 5a7.5 7.5 0 109.5 9.5z"/>',
+  phone:'<path d="M6.5 4h3l1.5 4-2 1.3a10 10 0 005.7 5.7L16 13l4 1.5v3c0 1.1-.9 2-2 2A14.5 14.5 0 014.5 6c0-1.1.9-2 2-2z"/>',
+  users:'<circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.8 14.3c2.3.1 4 1.6 4.6 4.2"/>',
+  food:'<path d="M6 3.5v7a2.5 2.5 0 005 0v-7M8.5 3.5V21"/><path d="M17 21V3.5c-2 1-3 3.5-3 6.5v3h3"/>',
+  lang:'<path d="M4 6h10M9 4v2M6.5 6c.8 3.5 3.3 6 6.5 7.2"/><path d="M11.5 6c-.8 3.5-3.3 6-6.5 7.2"/><path d="M13 20l3.5-8 3.5 8M14.2 17.3h4.6"/>',
+  cal:'<rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
+  cap:'<path d="M2.5 9.5L12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5V16c3.5 2.3 7.5 2.3 11 0v-4.5M21.5 9.5V15"/>',
+  rupee:'<path d="M7 5h10M7 9h10M7 5h3.5a4 4 0 010 8H7l7.5 6.5"/>',
+  bed:'<path d="M3 18V7M3 14h18v4M21 14v-2.5a3 3 0 00-3-3h-7V14"/><circle cx="7" cy="11" r="2"/>',
+  exam:'<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/>',
+  globe:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.5 5.2 3.5 8.5s-1.1 6.1-3.5 8.5c-2.4-2.4-3.5-5.2-3.5-8.5S9.6 5.9 12 3.5z"/>',
+  train:'<rect x="6" y="3.5" width="12" height="13" rx="3"/><path d="M6 10.5h12M9 20l1.5-3.5M15 20l-1.5-3.5"/><circle cx="9.5" cy="13.5" r=".6"/><circle cx="14.5" cy="13.5" r=".6"/>',
+  steth:'<path d="M6 3.5v5a4 4 0 008 0v-5"/><path d="M10 12.5v2.5a4.5 4.5 0 009 0v-2"/><circle cx="19" cy="11" r="2"/>'
+};
+const ic = n => `<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON[n]}</svg></span>`;
+const svg = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICON[n]}</svg>`;
+
+const RECOG = `<div class="chips"><span>Recognised by</span><b>INC</b><b>KSNC</b><b>RGUHS</b></div>`;
+
+/* English creative set. Claims come from the admissions plan + rnsnursingcollege.com. */
+const C = {
+  '01': { photo:'banner4.webp', pos:'center 35%', tag:'Admissions 2027',
+    eyebrow:'Training nurses since 2005',
+    h:'Your nursing career <em>starts here.</em>',
+    body:`<div class="courses">
+      <div class="course"><b>B.Sc Nursing</b><span>4-year degree · RGUHS</span><i>60 seats</i></div>
+      <div class="course"><b>GNM</b><span>3-year diploma · KSDNEB</span><i>60 seats</i></div></div>`,
+    foot: RECOG, cta:'Chat on WhatsApp' },
+
+  '02': { photo:'contact-us-banner.jpg', pos:'center 45%', tag:'Admissions 2027',
+    eyebrow:'Check before you choose',
+    h:'Recognised. <em>And we’ll prove it.</em>',
+    sub:'Ask any nursing college for its approval letters. We’ll send you ours.',
+    body:`<ul class="bullets"><li>${ic('shield')}Indian Nursing Council (INC)</li><li>${ic('shield')}Karnataka State Nursing Council</li>
+      <li>${ic('cap')}Affiliated to RGUHS, Bengaluru</li><li>${ic('check')}Recognised by Govt. of Karnataka</li></ul>`,
+    sqHide:['sub'],
+    foot:`<div class="note">Since 2005<br>Murudeshwar, Karnataka</div>`, cta:'Verify us yourself' },
+
+  '03': { photo:'laboratory/lab6.jpg', pos:'center 30%', tag:'NEET-UG 2027',
+    eyebrow:'Missed the MBBS cut?',
+    h:'Your healthcare career <em>isn’t over.</em>',
+    sub:'Choose <b>B.Sc Nursing</b>: a 4-year RGUHS degree that opens careers in India and abroad.',
+    body:`<ul class="bullets"><li>${ic('book')}For 12th Science (PCB) students</li><li>${ic('shield')}Recognised by INC &amp; KSNC</li>
+      <li>${ic('steth')}Hospital-based clinical training</li><li>${ic('home')}Hostel on campus</li></ul>`,
+    sqHide:['sub'],
+    foot: RECOG, cta:'Talk to a counsellor' },
+
+  '04': { photo:'library/library2.jpg', pos:'center 40%', tag:'Admissions 2027',
+    eyebrow:'No capitation. No hidden charges.',
+    h:'One fee. <em>Everything included.</em>',
+    body:`<div class="eq">
+      <div class="t">${ic('book')}Tuition</div><div class="op">+</div>
+      <div class="t">${ic('bed')}Hostel</div><div class="op">+</div>
+      <div class="t">${ic('food')}Food</div><div class="op">+</div>
+      <div class="t">${ic('exam')}Exams</div></div>
+      <div class="total">= One all-in fee <small>Pay in easy<br>instalments</small></div>`,
+    foot: RECOG, cta:'Get the fee sheet' },
+
+  '05': { photo:'library/library6.jpg', pos:'center 40%', tag:'For parents',
+    eyebrow:'Peace of mind for parents',
+    h:'A safe campus <em>for your daughter.</em>',
+    body:`<ul class="bullets"><li>${ic('home')}Girls’ hostel with resident wardens</li><li>${ic('cam')}CCTV across the campus</li>
+      <li>${ic('moon')}Fixed campus curfew</li><li>${ic('phone')}24×7 parent hotline</li></ul>`,
+    foot: RECOG, cta:'Book a video tour' },
+
+  '06': { layout:'quote', photo:'testimonial/Devika-Mohan.jpg', pos:'center 20%',
+    h:'From Murudeshwar <em>to Ireland.</em>',
+    quote:'Now I am an advanced practice nurse in Ireland. All the basics of my nursing career, I learned here.',
+    name:'Devika Mohan', role:'B.Sc Nursing, 2015–19 batch',
+    foot: RECOG, cta:'Start your journey' },
+
+  '07': { layout:'quote', photo:'testimonial/Deeksha-Gouda.jpg', pos:'center 15%',
+    h:'Trained here. <em>Hired at Kasturba Hospital.</em>',
+    quote:'I can never forget how my faculty and every staff member helped me build the skills I needed.',
+    name:'Deeksha Gouda', role:'B.Sc Nursing, 2022 batch · Staff nurse, Manipal',
+    foot: RECOG, cta:'Start your journey' },
+
+  '08': { photo:'extra-curricular/img2.jpg', pos:'center 40%', tag:'All states welcome',
+    eyebrow:'Coming from another state?',
+    h:'Far from home. <em>Never on your own.</em>',
+    body:`<ul class="bullets"><li>${ic('users')}A buddy from your own state</li><li>${ic('food')}Regional food day every week</li>
+      <li>${ic('lang')}Staff who speak Hindi &amp; Bengali</li><li>${ic('cal')}Leave for major festivals</li></ul>`,
+    foot: RECOG, cta:'Talk to a student' },
+
+  '09': { photo:'banner3.webp', pos:'center 55%', tag:'Admission month',
+    eyebrow:'Group journey · staff escort',
+    h:'We’ll make the journey <em>with you.</em>',
+    body:`<div class="route">
+      <div class="cities"><div class="city">Kolkata</div><div class="city">Guwahati</div><div class="city">Ranchi</div></div>
+      <div class="track"><svg viewBox="0 0 300 150" preserveAspectRatio="none" fill="none">
+        <path d="M0 22 C120 22 150 75 290 75 M0 75 H290 M0 128 C120 128 150 75 290 75" stroke="#FF6501" stroke-width="3.5" stroke-dasharray="10 9" vector-effect="non-scaling-stroke"/></svg></div>
+      <div class="dest"><b>Murudeshwar</b><span>via Konkan Railway</span></div></div>`,
+    sub:'Travel with other new students. Our staff escort you all the way to campus.',
+    sqHide:['sub'],
+    foot: RECOG, cta:'Book your journey' },
+
+  '10': { photo:'laboratory/lab1.jpg', pos:'center 30%', tag:'GNM 2027',
+    eyebrow:'General Nursing & Midwifery',
+    h:'Looking for a GNM seat? <em>It’s here.</em>',
+    body:`<ul class="bullets"><li>${ic('shield')}3-year INC-recognised diploma</li><li>${ic('book')}For 12th pass-outs</li>
+      <li>${ic('rupee')}One all-in fee, in instalments</li><li>${ic('cap')}Path to Post Basic B.Sc Nursing</li></ul>`,
+    foot: RECOG, cta:'Check your eligibility' }
+};
+
+const p = new URLSearchParams(location.search);
+const id = p.get('id') || '01', size = p.get('size') || 'fd';
+const d = C[id];
+const brand = `<div class="brand"><img src="${IMG}Nursing-logo.png" alt=""><div><b>RNS College of Nursing</b><small>Murudeshwar, Karnataka</small></div></div>`;
+const cta = `<div class="cta">${svg('chat')}${d.cta}</div>`;
+const safe = `<div class="safe">B.Sc Nursing <i></i> GNM <i></i> Admissions 2027</div>`;
+let html;
+if (d.layout === 'quote') {
+  html = `<div class="cr q ${size}" style="--pos:${d.pos}">${brand}
+    <div class="qwrap">
+      <div class="top"><h1>${d.h}</h1><div class="arch" style="background-image:url('${IMG}${d.photo}')"></div></div>
+      <blockquote>${d.quote}</blockquote>
+      <div class="who"><b>${d.name}</b><span>${d.role}</span></div>
+    </div>
+    <div class="band"><div class="foot">${d.foot}${cta}</div></div>${safe}</div>`;
+} else {
+  const hide = size === 'sq' ? (d.sqHide || []) : [];
+  html = `<div class="cr ${size}" style="--pos:${d.pos}">
+    <div class="photo" style="background-image:url('${IMG}${d.photo}')"></div>${brand}
+    ${d.tag ? `<div class="tag">${d.tag}</div>` : ''}
+    <div class="panel">
+      <div class="eyebrow">${d.eyebrow}</div>
+      <h1>${d.h}</h1>
+      ${d.sub && !hide.includes('sub') && id !== '09' ? `<p class="sub">${d.sub}</p>` : ''}
+      ${d.body || ''}
+      ${d.sub && !hide.includes('sub') && id === '09' ? `<p class="sub">${d.sub}</p>` : ''}
+      <div class="foot">${d.foot}${cta}</div>
+    </div>${safe}</div>`;
+}
+document.getElementById('root').innerHTML = html;
+const band = document.querySelector('.band');
+if (band) document.querySelector('.cr').style.setProperty('--band', band.offsetHeight + 'px');
+window.__IDS = Object.keys(C);
+</script>
+</body>
+</html>
