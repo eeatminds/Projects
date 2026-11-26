@@ -105,6 +105,24 @@
   #s5 .wa .n{font-family:var(--lat);font-size:38px;font-weight:600;line-height:1.1;opacity:.95;margin-top:6px}
 
   #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+
+  /* English cut (?lang=en): Latin display face, sizes re-balanced for Latin widths */
+  html.en #stage{font-family:var(--lat)}
+  html.en #s1 .l1,html.en #s1 .l2{font-size:142px;letter-spacing:-1px}
+  html.en #s1 .l1{top:285px} html.en #s1 .l2{top:450px}
+  html.en #s1 .q{top:650px} html.en #s1 .q .chip{font-size:132px;padding:6px 46px 18px}
+  html.en #s2a .cap .h{font-size:96px;line-height:1.05}
+  html.en #s2a .cap{padding-top:62px}
+  html.en #s2b .h1{font-size:78px} html.en #s2b .h2{font-size:96px} html.en #s2b .h2 b{font-size:120px;vertical-align:-4px}
+  html.en .pill{font-size:42px;padding:8px 32px 10px;letter-spacing:.5px}
+  html.en #s3 .name{font-size:96px;top:700px}
+  html.en #s3 .stop .k{font-size:30px;letter-spacing:1px;text-transform:uppercase}
+  html.en #s3 .stop .v{font-size:46px;letter-spacing:-.5px}
+  html.en #s4 .h{font-size:90px;line-height:1.04;top:262px}
+  html.en #s4 .tick{font-size:52px;font-weight:700;padding:8px 36px 12px 14px}
+  html.en #s5 .adm .chip{font-size:72px;padding:8px 42px 14px}
+  html.en #s5 .wa .t{font-size:60px;font-weight:700}
+  html.en #s5 .loc{font-size:38px}
 </style>
 </head>
 <body>
@@ -210,6 +228,41 @@ const SCENES = [
   {id:'s5',  a:18.0, b:20.0},
 ];
 const CUTS = [3.0, 5.5, 8.0, 14.0, 18.0];
+
+// ?lang=en → English cut. Malayalam is the markup default; English replaces these nodes.
+const COPY_EN = {
+  '#s1 .l1': 'Finished',
+  '#s1 .l2': 'Plus Two?',
+  '#s1 .q .chip': 'What next?',
+  '#s2a .cap .pill': 'Skills lab',
+  '#s2a .cap .h': 'Learn it<br>hands-on',
+  '#s2b .h1': 'Then, at our own',
+  '#s2b .h2': '<b>100</b>-bed hospital',
+  '#s2b .c2 .label': 'Ward rounds',
+  '#s3 .tag .pill': 'Our alumna',
+  '#s3 .name': 'Devika Mohan',
+  '#s3 .stop.a .k': 'Studied at',
+  '#s3 .stop.a .v': 'RNS, Murudeshwar',
+  '#s3 .stop.b .k': 'Now in',
+  '#s3 .stop.b .v': 'Ireland',
+  '#s3 .lower .n': 'Devika Mohan',
+  '#s4 .h': 'A little Kerala,<br>right here',
+  '#s4 .row1 .tick': '<i>✓</i>Hostel rooms',
+  '#s4 .row2 .tick': '<i>✓</i>Kerala food day, every week',
+  '#s5 .loc': 'Murudeshwar, Karnataka',
+  '#s5 .adm .chip': 'Admissions 2026–27',
+  '#s5 .wa .t': 'WhatsApp us',
+};
+const LANG = new URLSearchParams(location.search).get('lang') || 'ml';
+if (LANG === 'en') {
+  document.documentElement.lang = 'en';
+  document.documentElement.classList.add('en');
+  for (const [sel, html] of Object.entries(COPY_EN)) {
+    const el = document.querySelector(sel);
+    if (!el) throw new Error('missing copy target ' + sel);
+    el.innerHTML = html;
+  }
+}
 
 // ?footage=s1,s3  → those slots render without their stills (transparent), so real clips can sit underneath
 const params = new URLSearchParams(location.search);

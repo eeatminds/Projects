@@ -1,5 +1,5 @@
 // Renders src/reel.html to a PNG sequence (1080x1920, 30 fps) with headless Chromium.
-//   node src/render.mjs --out build/frames [--footage s1,s3] [--workers 3]
+//   node src/render.mjs --out build/frames [--lang en] [--footage s1,s3] [--workers 3]
 //   node src/render.mjs --stills build/preview --at 1.5,4,7,11,16,19.5   (spot-check frames)
 import { createRequire } from 'node:module';
 import http from 'node:http';
@@ -27,7 +27,10 @@ const server = http.createServer((req, res) => {
   fs.createReadStream(p).pipe(res);
 });
 await new Promise(r => server.listen(0, '127.0.0.1', r));
-const url = `http://127.0.0.1:${server.address().port}/src/reel.html${footage ? `?footage=${footage}` : ''}`;
+const query = new URLSearchParams();
+if (footage) query.set('footage', footage);
+if (typeof args.lang === 'string') query.set('lang', args.lang);
+const url = `http://127.0.0.1:${server.address().port}/src/reel.html${query.size ? `?${query}` : ''}`;
 
 const browser = await chromium.launch();
 async function openPage() {
