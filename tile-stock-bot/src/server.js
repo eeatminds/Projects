@@ -12,8 +12,9 @@ import { WhatsAppClient } from './whatsapp.js';
 const config = loadConfig();
 const logger = pino({ level: config.logLevel, transport: undefined });
 
-if (!config.adminPassword) {
-  logger.fatal('ADMIN_PASSWORD is not set. Copy .env.example to .env and choose a password.');
+if (!config.adminPassword || config.adminPassword === 'change-me-to-a-long-password') {
+  logger.fatal('Set your own ADMIN_PASSWORD in the .env file (open it with Notepad), then start again.');
+  console.error('\n>>> Set your own ADMIN_PASSWORD in the .env file (open it with Notepad), then start again.\n');
   process.exit(1);
 }
 

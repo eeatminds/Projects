@@ -56,7 +56,9 @@ You need a computer or server that stays on all day: an office PC, a small cloud
 
 Install **Node.js 22 or newer** from <https://nodejs.org> (the "LTS" Windows Installer is fine).
 
-**Windows (Command Prompt):**
+**Windows, easiest:** download the code as a ZIP from GitHub, right-click it → **Extract All…**, open the `tile-stock-bot` folder and double-click **`Start-Stock-Bot.bat`**. The first time it installs everything and opens the password file in Notepad. After that, the same double-click starts the bot and opens the admin page.
+
+**Windows (Command Prompt), by hand:**
 
 1. Download the code as a ZIP from GitHub (log in first). Right-click the ZIP → **Extract All…** → choose `C:\` → **Extract**.
 2. Open Command Prompt and run each line:
