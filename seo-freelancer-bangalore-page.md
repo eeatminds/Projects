@@ -170,7 +170,9 @@ Tell me about your business and the searches you want to win. I'll review your s
 
 ---
 
-## Part 4: SEO settings (Claude applies these after the page is published)
+## Part 4: SEO settings
+
+**Status (27 Nov 2026): applied and live** on page `pcvyh` (/seo-freelancer-bangalore) through the Wix connector. These replace the title, description and Local Business schema copied from Home. The FAQPage part of the JSON-LD below is **held back** until the FAQ section is visible on the page, because Google requires structured data to match visible content. Ask Claude to add it once the FAQ is built.
 
 - **SEO title (59 characters):** `SEO Freelancer in Bangalore | Shreyas V Patil (Digital SVP)`
 - **Meta description (151 characters):** `Hire Shreyas V Patil, a Google-certified SEO freelancer in Bangalore with 10+ years' experience. Local, technical & on-page SEO that brings real leads.`
@@ -289,3 +291,48 @@ Tell me about your business and the searches you want to win. I'll review your s
   ]
 }
 ```
+
+---
+
+## Part 5: Design and build guide for Wix Studio
+
+Visual mockup: https://claude.ai/artifact/XNLofoVrd2UXRfZfWXfQ7q (private until shared). Rebuild it top to bottom in Studio. The copy matches Part 2.
+
+### Brand tokens (taken from the live site)
+
+| Token | Value | Use |
+|---|---|---|
+| Ink | `#090909` | Text, dark sections, outline buttons |
+| White | `#FFFFFF` | Light sections |
+| Light grey | `#F4F4F4` | Cards, alternate sections |
+| Mint | `#5AE4A8` | Highlights. On black only as text color. On white only as a marker behind black text (mint text on white fails contrast at 1.6:1) |
+| Dark green | `#0E7A4E` | Small labels on white (eyebrows, ticks) |
+| CTA red | `#E00000` | Primary buttons. Slightly darker than the site's `#FF0000` so white button text passes contrast (5.0:1 vs 4.0:1) |
+| Purple | `#595CEF` | Footer and the form's top bar |
+| Body grey | `#4A4A4A` on white, `#B8B8B8` on black | Paragraph text |
+| Headings | Wix Madefor Display, ExtraBold/Bold | H1 64–68px, H2 44–52px, H3 19–26px |
+| Body | Wix Madefor Text, Regular | 17px, line height 1.6 |
+| Shapes | Pills (fully rounded) for buttons and tags; 16–24px radius cards | |
+
+### Sections, top to bottom
+
+1. **Hero (white, 2 columns).** Left: small green pill "SEO FREELANCER · KALYAN NAGAR, BANGALORE" → **H1** "SEO Freelancer in Bangalore" (mint marker under "Bangalore") → "SHREYAS V PATIL · DIGITAL SVP" → two short paragraphs → red pill button "Book a free SEO strategy session" (anchor to the contact section) + black outline pill "See client results" → three green ticks: Google & Meta certified · 10+ years · You work with me directly. Right: your B&W portrait, full height, with a small black card "220+ projects completed" overlapping its bottom-left corner.
+2. **Stats strip (black).** Four stats in mint: 10+ years, 220+ projects, 10+ countries, 96% positive reviews.
+3. **Why hire a freelancer (white).** Left: green eyebrow + **H2** + two paragraphs. Right: five grey cards (black icon tile with mint icon, **H3**, one line).
+4. **Services (black).** **H2** "My SEO services in Bangalore" (mint "Bangalore"). Five rows divided by thin lines: mint outlined number pill 01–05, **H3** title, paragraph, small grey tags.
+5. **Process (white).** **H2**, six bordered cards in a 3×2 grid (big number with mint underline, **H3**, one line), then a grey note box "SEO is a long-term channel…".
+6. **Results (light grey).** **H2** + "See more client results →" link. Black testimonial card (mint quote mark, Deepika Sharma). Next to it a dashed placeholder card for a real Bangalore case study: fill it or delete it before publishing.
+7. **Certifications (white, centered).** **H2** with mint marker on "Google and Meta", four badge cards (reuse your badge images from Home).
+8. **Pricing (black).** **H2** "How much does an SEO freelancer in Bangalore cost?" + paragraph + optional dashed price box + red "Get my SEO quote" button.
+9. **Areas (white).** **H2** + paragraph, area chips. Kalyan Nagar chip is black with a mint pin.
+10. **FAQ (light grey).** **H2** on the left, six white accordion rows on the right, first one open. Use a collapsible/accordion element so all answers stay in the page HTML.
+11. **Contact (black + white form).** Keep the existing form section, but change its heading to **H2** "Book your free SEO strategy session". Suggested extra field: "Your website". Button text: "Book my free session".
+12. **Footer.** Unchanged.
+
+### Must-dos for SEO while building
+
+- Exactly **one H1** on the page (the hero title). Add it from **Add Elements → Text → Add Heading 1**. The duplicated Home page lost its H1. Right now the page has no H1 at all.
+- Section titles are **Heading 2**, card and FAQ titles **Heading 3**. Don't use headings for decoration.
+- Add alt text to every image (portrait: "Shreyas V Patil, SEO freelancer in Bangalore").
+- Check the mobile breakpoint: columns stack, buttons are full width, and nothing overflows sideways.
+- Publish, then tell Claude so it can add the FAQ schema and re-check the page.
