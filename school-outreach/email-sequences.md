@@ -23,63 +23,73 @@
 
 ## Sequence A: Bangalore schools (34 prospects)
 
-Send from Apollo (see `deliverability-setup-guide.md`). Emails 2–4 go **as replies in the same thread**.
+**Updated 27 Nov: the screenshot now goes in Email 1** (your call: proof beats caution). To keep deliverability safe with an image:
+- one inline image, 600px wide, about 140 KB (`assets/rnsis-top-school-rr-nagar-600w.png`), never an attachment
+- **no links** anywhere, and no website in the signature
+- send at most 5–10 a day while the mailbox is new
 
-### Email 1 (Day 1): plain text, no image, no links
+### Subject lines (benefit + their name/school; pick one per email)
 
-**Subject (A/B test):**
-- A: `2027-28 admissions at {{school}}`
-- B: `parents searching in {{area}}`
+| Use | Subject |
+|---|---|
+| **Default** | `{{first_name}}, complete {{school}}'s 2027-28 admission target` |
+| Ads schools | `More 2027-28 admissions for {{school}}, without more ad spend` |
+| New schools | `Fill {{school}}'s first batches from Google` |
+| Follow-up | `{{school}}'s 2027-28 seats: free audit ready` |
+
+Avoid "click", "free!!!", "guaranteed", "#1 ranking" and ALL CAPS in subjects. Those are classic spam triggers. "Reply YES" in the body does the same job safely.
+
+### Email 1 (Day 1): screenshot + "reply YES"
+
+**Subject:** `{{first_name}}, complete {{school}}'s 2027-28 admission target`
 
 ```
 Hi {{first_name}},
 
-Search "top school in rr nagar" on Google. The first school you'll see is
-RNS International School, my client.
+This is what parents see when they search "top school in rr nagar" on Google:
 
-We got them there right as parents were shortlisting schools for the new
-academic year, so those searches turn into admission enquiries for their team.
+[INLINE IMAGE: assets/rnsis-top-school-rr-nagar-600w.png]
 
-Parents near {{school}} are searching the same way right now: "best school
-in {{area}}", "CBSE school near me". I'd like to help {{school}} complete its
-2027-28 admission goals the same way.
+RNS International School, my client, is the first school they see, right in
+the middle of admission season.
 
-Can I send you a free 2-minute video showing where {{school}} appears for
-those searches today, and which schools are getting those parents instead?
+I've done this in education before. For RNS Institute of Technology, we moved
+admission searches like "best engineering college in Bangalore" from page 2-3
+to #1, and organic traffic grew 1000% during the admissions window. They've
+held those rankings across multiple admission cycles.
+
+I can do the same for {{school}} on the searches your parents use, like
+"{{keyword_1}}" and "{{keyword_2}}".
+
+**Reply "YES"** and I'll send you a free Admission Audit for {{school}} within
+24 hours: where you rank today, which schools are taking your parents, and
+3 fixes to fill your 2027-28 seats faster.
+
+Prefer WhatsApp? +91 74831 75339
 
 Shreyas V Patil
 Founder, EEAT Minds (Google & Meta certified)
-Bangalore | +91 [your number]
+Bangalore
 
-P.S. If this isn't relevant, just reply "no" and I won't email again.
+P.S. If now isn't the right time, just reply "no" and I won't follow up.
 ```
 
-> **Why it works:** the prospect can check the proof in 5 seconds. It names a fear (competitors are getting *their* parents). The ask is tiny. And there are no links or images, which is what keeps it in the inbox.
+> **Your promise is "within 24 hours".** When someone replies YES, record the 2-minute audit video (script further down) the same day.
 
-### Email 2 (Day 3): the screenshot (one inline image, no attachment)
-
-**Subject:** (reply in thread)
+### Email 2 (Day 3): short bump, reply in the same thread
 
 ```
 Hi {{first_name}},
 
-Here's the screenshot so you don't have to search:
+Quick nudge on this. The audit takes me about 15 minutes and you'll see
+exactly which schools parents near {{school}} are finding instead of you.
 
-[INSERT IMAGE: assets/rnsis-top-school-rr-nagar-600w.png]
-
-That's a live Google search from Rajarajeshwari Nagar. "Top school in rr
-nagar" is exactly what parents type, and RNS is the first school they click.
-[Once you have RNSIS's number: "This season that's brought them __ enquiries."]
-
-The same approach works for "{{area}}" searches. Worth a 15-minute call this
-week or next?
+Just reply "YES" and it's yours by tomorrow.
 
 Shreyas
 ```
 
-> Insert the image **inline** (Apollo: image button in the editor). **Never as an attachment.** Use the 600px version. It's small, so it won't trip spam filters.
-
-### Email 3 (Day 6): value, no pitch
+### Email 3 (Day 6): value, no pitch (reply in thread)
 
 **Subject:** (reply in thread)
 
