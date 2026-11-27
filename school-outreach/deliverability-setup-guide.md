@@ -97,8 +97,9 @@ Brevo is a good tool, but its rules **forbid importing purchased, rented, scrape
   ```
   Shreyas V Patil
   Founder, EEAT Minds (Google & Meta certified)
-  Bangalore | +91 [your number] | eeatminds.in
+  Bangalore | +91 [your number]
   ```
+  Leave the website out. Gmail turns a typed domain into a link, and links in a first cold email hurt deliverability. Your address already shows @eeatminds.in.
 
 ### Step 5: Warm up the mailbox (14 days, 10 min/day)
 
