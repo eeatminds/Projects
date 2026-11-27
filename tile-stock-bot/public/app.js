@@ -328,7 +328,7 @@ async function loadStock() {
       const variants = it.variants.map((v) => {
         const gl = v.godowns.length
           ? v.godowns.map((g) => `<div class="loc-list" style="margin-top:4px"><span><b>${esc(g.name)}</b> ${num(g.total)}</span>${g.batches.slice(0, 8).map((b) => `<span class="muted">${esc(b.batch || '—')} <b>${num(b.qty)}</b></span>`).join('')}${g.batches.length > 8 ? `<span class="muted">+${g.batches.length - 8} more</span>` : ''}</div>`).join('')
-          : '<div class="loc-list" style="margin-top:4px"><span class="oos">Out of stock</span></div>';
+          : '<div class="loc-list" style="margin-top:4px"><span class="oos">No stock</span></div>';
         return `<div class="variant">${v.label ? `<span class="badge">${esc(v.label)}</span>` : ''}${gl}</div>`;
       }).join('');
       return `<tr><td class="code">${esc(it.code)}</td><td>${esc(it.name)}</td><td>${variants}</td><td class="num">${it.total > 0 ? `<b>${num(it.total)}</b>` : '<span class="oos">0</span>'}</td></tr>`;
@@ -563,8 +563,8 @@ $('#bulk-form').addEventListener('submit', async (e) => {
 // ---------- reports ----------
 const OUTCOME = {
   in_stock: ['good', 'In stock'],
-  out_of_stock: ['warn', 'Out of stock'],
-  unavailable: ['warn', 'Not in that polish/size'],
+  out_of_stock: ['warn', 'No stock'],
+  unavailable: ['warn', 'No stock in that type/size'],
   not_found: ['bad', 'Not found'],
   ambiguous: ['info', 'Many matches'],
   blocked: ['', 'Not allowed'],
@@ -598,7 +598,7 @@ async function loadReports() {
     stat('Questions', num(s.total), days === 1 ? 'today' : `last ${days} days`),
     stat('People asking', num(s.people), 'different numbers'),
     stat('Answered with stock', num(s.inStock), s.total ? `${Math.round((s.inStock / s.total) * 100)}% of questions` : ''),
-    stat('Not found', num(s.notFound), `${num(s.outOfStock)} out of stock`),
+    stat('Not found', num(s.notFound), `${num(s.outOfStock)} had no stock`),
   ].join('');
   drawDaily(r.daily, days);
   $('#top-codes').innerHTML = rankList(r.topCodes, (i) => `<span class="code">${esc(i.code)}</span> <span class="muted small">· ${i.people} people</span>`);

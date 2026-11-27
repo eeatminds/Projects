@@ -50,11 +50,14 @@ test('not available, out of stock, not found with suggestions', () => {
   const e = env();
   const na = ask(e, '1005 pgvt');
   assert.equal(na.outcomes[0].outcome, 'unavailable');
-  assert.match(na.reply, /Not available in PGVT/);
+  assert.match(na.reply, /\*No stock\* in PGVT/);
   assert.match(na.reply, /Available:\n• GVT · Premium · 600x600: 206 boxes/);
-  assert.equal(ask(e, '1202').outcomes[0].outcome, 'out_of_stock');
+  const zero = ask(e, '1202');
+  assert.equal(zero.outcomes[0].outcome, 'out_of_stock');
+  assert.match(zero.reply, /\*1202\*\n\*GVT · Premium · 600x600\*\n❌ \*No stock\* in any godown/);
   const nf = ask(e, '1006 gvt');
   assert.equal(nf.outcomes[0].outcome, 'not_found');
+  assert.match(nf.reply, /\*1006\* – \*No stock\*\. This code is not in the stock list\./);
   assert.match(nf.reply, /Did you mean: .*\*1005\*/);
 });
 
@@ -95,7 +98,7 @@ test('new upload replaces only that godown', () => {
   assert.match(a, /Mangalore: \*64 boxes\*/);
   assert.doesNotMatch(a, /SS01\/20/, 'old Hubli batches are gone');
   assert.equal(ask(e, '3003').relevant, true);
-  assert.match(ask(e, '3003').reply, /not in the stock list/, 'Hubli-only design disappears after the new Hubli file');
+  assert.match(ask(e, '3003').reply, /No stock\*\. This code is not in the stock list/, 'Hubli-only design disappears after the new Hubli file');
 });
 
 test('no stock uploaded yet', () => {
@@ -103,4 +106,19 @@ test('no stock uploaded yet', () => {
   const a = answerMessage(e.stock.index, '1055 pgvt', {});
   assert.equal(a.relevant, true);
   assert.match(a.reply, /not uploaded yet/);
+});
+
+test('godowns without the design are shown as "No stock"', () => {
+  const e = env();
+  // 1055 PGVT Standard 600x1200 is only in Hubli
+  const a = ask(e, '1055 pgvt std').reply;
+  assert.match(a, /🏬 Hubli: \*18 boxes\*/);
+  assert.match(a, /🏬 Mangalore: \*No stock\*/);
+  assert.match(a, /Stock as on: Hubli, Mangalore 25 Nov/, 'dates shown for the "No stock" godown too');
+  // several godowns without stock go on one line
+  e.stock.importFile(xlsx(MANGALORE), 'BHATKAL.xlsx', { godownName: 'Bhatkal' });
+  e.stock.importFile(xlsx({ S: [['COLOUR CODE', 'SIZE', 'BOX'], ['9001-GVT', '600X600', 3]] }), 'u.xlsx', { godownName: 'Udupi' });
+  assert.match(ask(e, '1055 pgvt std').reply, /🏬 \*No stock:\* Bhatkal, Mangalore, Udupi/);
+  // a godown named in the question limits the reply to it
+  assert.match(ask(e, '3003 mangalore').reply, /\*No stock\* in mangalore|No stock in Mangalore/i);
 });

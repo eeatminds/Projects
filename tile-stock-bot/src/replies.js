@@ -59,11 +59,25 @@ export function groupVariants(rows) {
   return [...variants.values()].sort((a, b) => b.total - a.total);
 }
 
-function variantLines(v, unit, opts) {
+/** "🏬 Mangalore: No stock" or "🏬 No stock: Mangalore, Bhatkal" for godowns that have nothing. */
+function noStockLine(names) {
+  if (!names.length) return null;
+  return names.length === 1 ? `🏬 ${names[0]}: *No stock*` : `🏬 *No stock:* ${names.join(', ')}`;
+}
+
+/** Godowns that have a stock list (and match a godown named in the question). */
+function listedGodowns(index, parsed) {
+  const asked = new Set(parsed.godowns.map(norm));
+  return (index.meta.godowns || [])
+    .filter((g) => g.uploadedAt && (!asked.size || asked.has(norm(g.name))))
+    .map((g) => g.name);
+}
+
+function variantLines(v, unit, opts, allGodowns = []) {
   const lines = [];
   if (v.label) lines.push(`*${v.label}*`);
   if (v.total <= 0) {
-    lines.push('❌ Out of stock');
+    lines.push(allGodowns.length > 1 ? '❌ *No stock* in any godown' : '❌ *No stock*');
     return lines;
   }
   const godowns = [...v.godowns.values()].filter((g) => g.total > 0).sort((a, b) => b.total - a.total);
@@ -82,6 +96,8 @@ function variantLines(v, unit, opts) {
       lines.push(`   • +${rest.length} more batches – ${fmtNum(rest.reduce((s, b) => s + b.qty, 0))}`);
     }
   }
+  const empty = noStockLine(allGodowns.filter((name) => !godowns.some((g) => g.name === name)));
+  if (empty) lines.push(empty);
   if (godowns.length > 1) lines.push(`Total: *${qtyText(v.total, unit)}*`);
   return lines;
 }
@@ -96,7 +112,7 @@ function codeTitle(index, code) {
 function availableSummary(index, code, unit) {
   return groupVariants(index.byCode.get(code) || [])
     .slice(0, 8)
-    .map((v) => `• ${v.label || 'Stock'}: ${v.total > 0 ? qtyText(v.total, unit) : 'out of stock'}`);
+    .map((v) => `• ${v.label || 'Stock'}: ${v.total > 0 ? qtyText(v.total, unit) : 'no stock'}`);
 }
 
 /** Reply block + log outcome for one found code. */
@@ -104,10 +120,11 @@ function foundBlock(index, item, parsed, opts) {
   const unit = index.meta.unit || 'boxes';
   const lines = [codeTitle(index, item.code)];
   const rows = index.filterRows(item, parsed);
-  const godownsUsed = new Set();
+  const allGodowns = listedGodowns(index, parsed);
+  const godownsUsed = new Set(allGodowns);
   if (!rows.length) {
     const asked = [item.design, ...parsed.filterWords, ...parsed.sizes.map((s) => s.toLowerCase()), ...parsed.godowns].filter(Boolean).join(' ');
-    lines.push(`❌ Not available in ${asked}.`);
+    lines.push(`❌ *No stock* in ${asked}.`);
     const avail = availableSummary(index, item.code, unit);
     if (avail.length) lines.push('Available:', ...avail);
     for (const r of index.byCode.get(item.code) || []) godownsUsed.add(r.godown);
@@ -119,16 +136,20 @@ function foundBlock(index, item, parsed, opts) {
   const empty = variants.filter((v) => v.total <= 0);
   inStock.slice(0, MAX_VARIANTS).forEach((v, i) => {
     if (i > 0) lines.push('');
-    lines.push(...variantLines(v, unit, opts));
+    lines.push(...variantLines(v, unit, opts, allGodowns));
   });
   if (inStock.length > MAX_VARIANTS) {
     lines.push('', `…${inStock.length - MAX_VARIANTS} more types in stock. Send type/size too, e.g. *${index.display.get(item.code)} PGVT 600x1200*`);
   }
   if (empty.length) {
-    if (!inStock.length && empty.length === 1) lines.push(...variantLines(empty[0], unit, opts));
-    else {
+    if (!inStock.length && empty.length === 1) lines.push(...variantLines(empty[0], unit, opts, allGodowns));
+    else if (!inStock.length) {
+      lines.push(allGodowns.length > 1 ? '❌ *No stock* in any godown' : '❌ *No stock*');
+      lines.push(...empty.slice(0, 6).map((v) => `• ${v.label || 'stock'}`));
+      if (empty.length > 6) lines.push(`• +${empty.length - 6} more`);
+    } else {
       const labels = empty.slice(0, 4).map((v) => v.label || 'stock').join(', ');
-      lines.push('', `❌ Out of stock: ${labels}${empty.length > 4 ? ` +${empty.length - 4} more` : ''}`);
+      lines.push('', `❌ *No stock:* ${labels}${empty.length > 4 ? ` +${empty.length - 4} more` : ''}`);
     }
   }
   return { text: lines.join('\n'), outcome: inStock.length ? 'in_stock' : 'out_of_stock', godowns: godownsUsed };
@@ -240,7 +261,7 @@ export function answerMessage(index, text, opts = {}) {
         if (!(strongSignal || (!strict && shortCodeOnly))) continue;
         relevant = true;
         const sugg = item.options.length ? `\nDid you mean: ${item.options.map((c) => `*${index.display.get(c) || c}*`).join(', ')}?` : '';
-        blocks.push(`❌ *${item.token}* is not in the stock list.${sugg}`);
+        blocks.push(`❌ *${item.token}* – *No stock*. This code is not in the stock list.${sugg}`);
         outcomes.push({ code: null, token: item.token, outcome: 'not_found' });
       }
     }
