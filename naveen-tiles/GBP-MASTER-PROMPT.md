@@ -9,6 +9,7 @@ MODE: FULL        (CORE = sections 1–3 + 14 only · FULL = all 14 sections)
 
 Optional, fill only what you know for sure (leave blank otherwise):
 - Store type: Showroom / Factory outlet / Wholesale depot / Office
+- Exact text on the storefront signboard (and on this store's invoices):
 - Business hours:
 - This store's opening date (month + year):
 - Exact landmark / directions:
@@ -102,9 +103,14 @@ Regional relevance hints (use only if they genuinely fit; never present as store
 GOOGLE RULES YOU MUST FOLLOW
 ========================================================================
 BUSINESS NAME
-- Name = exactly what the permanent storefront signage says, IDENTICAL at every location in India: "Naveen Tiles".
-- Google's chain rule: all locations in a country use the same name. Never add area/city ("- Jayanagar"), keywords ("Shop", "Showroom", "Vitrified"), "Ltd"/"Pvt Ltd", taglines, phone numbers, or ALL CAPS. These trigger suspensions.
-- Only exception: a different operation type with its own consistent signage at all such sites (e.g. "Naveen Tiles Factory Outlet"). Use it only if Store type says so, and flag "needs signage photo as proof".
+- Name = exactly what the permanent storefront signage says. Default for every location in India: "Naveen Tiles".
+- Google's chain rule: all locations in a country use the same name, UNLESS the real-world name consistently varies by location (signboard, website, invoices and visiting cards all show it). So:
+  • Signboard reads "Naveen Tiles" → the name is "Naveen Tiles".
+  • Signboard, this store's website page and its invoices all read "Naveen Tiles {Area}" (e.g. "Naveen Tiles Jayanagar") → that exact name is allowed. Flag "keep signboard photo and an invoice as proof".
+  • The area appears only on Google, not on the signboard → NOT allowed. Use "Naveen Tiles" and flag the live profile.
+- Never add keywords or descriptors ("Shop", "Showroom", "Vitrified", "Best"), "Ltd"/"Pvt Ltd", taglines, phone numbers, or ALL CAPS. These trigger suspensions.
+- A different operation type with its own consistent signage (e.g. "Naveen Tiles Factory Outlet") is also allowed. Use it only if Store type says so.
+- If the signboard text isn't given, use "Naveen Tiles" and add [VERIFY signboard text].
 - The brand name already contains the main keyword ("Tiles"). Don't add more.
 
 CATEGORIES
@@ -124,7 +130,7 @@ DESCRIPTION
 - The first ~250 characters matter most. Mobile Search and Maps often cut the description with "More" around there, and AI answers (Gemini in Maps, AI Overviews) lean on the opening. They must contain: "Naveen Tiles" + what it is (tile showroom) + exact area/road + city + one verifiable differentiator (e.g. own factories / since 1983).
 - After 250: products by room/use → who you help → factory and quality proof → 2–4 nearby areas served → bulk/project supply → soft closing line.
 - Write the description first, before any other field, so every other field stays consistent with it.
-- Must NOT contain: links/URLs, phone numbers, emails, prices, offers, discounts, "sale", "free", ALL CAPS words, emojis, decorative symbols, hashtags, competitor brand names (Kajaria, Somany, Johnson, etc.).
+- Must NOT contain: links/URLs, phone numbers, emails, prices, offers, discounts, "sale", "free", ALL CAPS words (standard acronyms such as ISO, ISI, BIS and UPI are fine), emojis, decorative symbols, hashtags, competitor brand names (Kajaria, Somany, Johnson, etc.).
 - No unverifiable superlatives: best, No.1, top, leading, cheapest, lowest price, guaranteed, India's largest.
 - Natural keywords only: city name max 2 times, area name max 2 times, the word "tiles" max 6 times. Use "tile showroom" or "tiles shop" once (Indian searches: "tiles shop near me" ~90,500/month, "tiles showroom near me" ~9,900/month, "vitrified tiles" ~33,100/month).
 - If a city has a common alternate spelling (Hubli, Bellary, Belgaum, Shimoga), you may use it once, naturally.
@@ -134,7 +140,7 @@ DESCRIPTION
 TASK: produce these sections in this order
 ========================================================================
 1. BUSINESS NAME
-   - The name to enter + one line on why it's compliant.
+   - The name to enter, which signboard case applies, and one line on why it's compliant.
    - If the live profile uses a different name (see Notes), give the exact fix and the risk of leaving it.
 
 2. CATEGORIES
@@ -201,7 +207,7 @@ TASK: produce these sections in this order
    - Remind: search Maps for duplicate listings of this store (old names, dealer-made pins) and request merge/removal.
 
 14. COMPLIANCE SELF-CHECK (table: Check | PASS/FAIL | Fix)
-   - Name identical to signage and to all other locations; no location/keyword/legal suffix
+   - Name matches the signboard exactly; area only if signboard, website and invoices show it; no keyword/legal suffix
    - Primary category = Tile store (or justified exception)
    - Description ≤ 750 characters; first 250 contain brand + what + area + city + differentiator
    - No links, phones, emails, prices, offers, ALL CAPS, emojis, superlatives, competitor names
